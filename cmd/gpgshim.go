@@ -1,12 +1,22 @@
 package cmd
 
 import (
-    "os"
-    "context"
-
-    "github.com/urfave/cli/v3"
+	"context"
+	"github.com/urfave/cli/v3"
+	"os"
 )
 
 func Execute() {
-    (&cli.Command{}).Run(context.Background(), os.Args)
+	cli.VersionFlag = &cli.BoolFlag{
+		Name:    "version",
+		Aliases: []string{"V"},
+		Usage:   "show podman-gpgshim version",
+	}
+
+	cmd := &cli.Command{
+		Name:    "podman-gpgshim (fake GnuPG) for Podman",
+		Version: "v1.0.0",
+	}
+
+	cmd.Run(context.Background(), os.Args)
 }
